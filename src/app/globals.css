@@ -1,0 +1,86 @@
+:root {
+  --background: #050505;
+  --foreground: #ffffff;
+  --accent: #ffffff;
+  --muted: #666666;
+  --glass: rgba(15, 15, 15, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none !important;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif !important;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background Grid (Kept) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+  z-index: -1;
+}
+
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(20, 20, 20, 0.9);
+}
+
+.text-gradient {
+  color: var(--foreground);
+  font-family: var(--font-header), sans-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-header), sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+  pointer-events: none;
+  animation: scan 10s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
+}
