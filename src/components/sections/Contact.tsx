@@ -21,7 +21,7 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState('submitting');
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -48,7 +48,7 @@ export default function Contact() {
   return (
     <Section id="contact">
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '4rem' }}>
-        
+
         {/* Left Side: Text & Socials */}
         <div>
           <h2 className="text-gradient" style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)', marginBottom: '1.5rem', lineHeight: 1 }}>Get_In_Touch</h2>
@@ -64,12 +64,12 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -5, backgroundColor: 'rgba(255,255,255,0.05)', color: '#fff' }}
-                style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  alignItems: 'center', 
-                  gap: '0.8rem', 
-                  color: 'rgba(255,255,255,0.4)', 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '0.8rem',
+                  color: 'rgba(255,255,255,0.4)',
                   textDecoration: 'none',
                   transition: 'all 0.3s ease',
                   padding: '1.5rem 1rem',
@@ -95,7 +95,7 @@ export default function Contact() {
         <div className="glass" style={{ padding: '3rem', border: '1px solid rgba(255,255,255,0.1)', position: 'relative' }}>
           <AnimatePresence mode="wait">
             {formState === 'success' ? (
-              <motion.div 
+              <motion.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -107,7 +107,7 @@ export default function Contact() {
                 <p style={{ opacity: 0.6, fontSize: '0.9rem', fontFamily: 'monospace' }}>Your message has been encrypted and sent. Expect a response soon.</p>
               </motion.div>
             ) : (
-              <motion.form 
+              <motion.form
                 key="form"
                 onSubmit={handleSubmit}
                 initial={{ opacity: 0 }}
@@ -117,53 +117,53 @@ export default function Contact() {
               >
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label style={{ fontSize: '0.6rem', fontFamily: 'monospace', opacity: 0.5, letterSpacing: '0.1em' }}>SENDER_NAME</label>
-                  <input 
+                  <input
                     required
-                    type="text" 
+                    type="text"
                     placeholder="Enter your name"
                     value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', padding: '1rem', color: '#fff', outline: 'none', fontFamily: 'monospace' }}
                   />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label style={{ fontSize: '0.6rem', fontFamily: 'monospace', opacity: 0.5, letterSpacing: '0.1em' }}>SENDER_EMAIL</label>
-                  <input 
+                  <input
                     required
-                    type="email" 
+                    type="email"
                     placeholder="Enter your email"
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', padding: '1rem', color: '#fff', outline: 'none', fontFamily: 'monospace' }}
                   />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label style={{ fontSize: '0.6rem', fontFamily: 'monospace', opacity: 0.5, letterSpacing: '0.1em' }}>MESSAGE_PAYLOAD</label>
-                  <textarea 
+                  <textarea
                     required
                     rows={4}
                     placeholder="Write your message..."
                     value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', padding: '1rem', color: '#fff', outline: 'none', fontFamily: 'monospace', resize: 'none' }}
                   />
                 </div>
-                
+
                 <motion.button
                   type="submit"
                   disabled={formState === 'submitting'}
                   whileHover={{ backgroundColor: '#fff', color: '#000' }}
                   whileTap={{ scale: 0.98 }}
-                  style={{ 
-                    marginTop: '1rem', 
-                    padding: '1.2rem', 
-                    background: 'transparent', 
-                    border: '1px solid #fff', 
-                    color: '#fff', 
-                    fontWeight: 700, 
-                    fontSize: '0.8rem', 
-                    fontFamily: 'monospace', 
-                    letterSpacing: '0.2em', 
+                  style={{
+                    marginTop: '1rem',
+                    padding: '1.2rem',
+                    background: 'transparent',
+                    border: '1px solid #fff',
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: '0.8rem',
+                    fontFamily: 'monospace',
+                    letterSpacing: '0.2em',
                     cursor: 'none',
                     display: 'flex',
                     alignItems: 'center',
@@ -182,9 +182,10 @@ export default function Contact() {
           </AnimatePresence>
         </div>
       </div>
-      
-      <footer style={{ marginTop: '8rem', textAlign: 'center', fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)', fontFamily: 'monospace', letterSpacing: '0.1em' }}>
-        © {new Date().getFullYear()} NS_SYSTEM_LOG // STRICTLY_NO_GENERIC
+
+      <footer style={{ marginTop: '8rem', textAlign: 'center', fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', fontFamily: 'monospace', letterSpacing: '0.1em', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        <div>// Aspiring Data Analyst · Chennai, India</div>
+        <div style={{ opacity: 0.5 }}>© 2026 NITHIN S // NS_SYSTEM_v1.0. ALL RIGHTS RESERVED.</div>
       </footer>
     </Section>
   );

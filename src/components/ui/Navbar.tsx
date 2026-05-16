@@ -34,7 +34,17 @@ export default function Navbar() {
     >
       {/* System Logo / ID */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
-        <div style={{ width: '12px', height: '12px', background: '#fff', borderRadius: '2px' }} />
+        <img
+          src="/images/ns-logo.png"
+          alt="NS Logo"
+          style={{
+            width: '32px',
+            height: '32px',
+            borderRadius: '50%',
+            objectFit: 'cover',
+            border: '1px solid rgba(255,255,255,0.1)'
+          }}
+        />
         <span style={{ fontFamily: 'var(--font-header)', fontSize: '0.8rem', letterSpacing: '0.2em', fontWeight: 700 }}>
           NS_SYSTEM_v1.0
         </span>
