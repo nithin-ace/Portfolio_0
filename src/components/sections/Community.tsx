@@ -1,44 +1,12 @@
 'use client';
 
 import Section from '../ui/Section';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Radio, PenTool } from 'lucide-react';
 import React from 'react';
+import ParallaxLayer from '../ui/ParallaxLayer';
 
 export default function Community() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 25, stiffness: 120, mass: 0.5 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
-
-  const xCore = useTransform(smoothX, [-0.5, 0.5], [-30, 30]);
-  const yCore = useTransform(smoothY, [-0.5, 0.5], [-30, 30]);
-
-  const xRing1 = useTransform(smoothX, [-0.5, 0.5], [-50, 50]);
-  const yRing1 = useTransform(smoothY, [-0.5, 0.5], [-50, 50]);
-
-  const xRing2 = useTransform(smoothX, [-0.5, 0.5], [30, -30]);
-  const yRing2 = useTransform(smoothY, [-0.5, 0.5], [30, -30]);
-
-  const xRing3 = useTransform(smoothX, [-0.5, 0.5], [-15, 15]);
-  const yRing3 = useTransform(smoothY, [-0.5, 0.5], [-15, 15]);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, clientY, currentTarget } = e;
-    const { left, top, width, height } = currentTarget.getBoundingClientRect();
-    const x = (clientX - left) / width - 0.5;
-    const y = (clientY - top) / height - 0.5;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
   return (
     <Section id="community">
       <div style={{ position: 'relative', isolation: 'isolate', marginTop: '2rem' }}>
@@ -53,131 +21,86 @@ export default function Community() {
         </div>
 
         <div
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
           style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '6rem', alignItems: 'center' }}
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            style={{
-              position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'crosshair',
-              padding: '2rem',
-              width: '250px',
-              height: '250px',
-              margin: '0 auto',
-              perspective: '1000px'
-            }}
-          >
-            {/* 1. Back Rings (Behind Planet) */}
+          <ParallaxLayer speed={0.2} style={{ overflow: 'visible' }}>
             <motion.div
-              style={{
-                position: 'absolute',
-                width: '240px',
-                height: '240px',
-                rotateX: 60,
-                rotateY: -15,
-                x: xRing1,
-                y: yRing1,
-                zIndex: 1,
-              }}
-            >
-              {/* Saturn Main Dusty Disk */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  borderRadius: '50%',
-                  background: 'radial-gradient(circle, transparent 38%, rgba(245,197,126,0.06) 38%, rgba(245,197,126,0.18) 48%, transparent 49%, rgba(245,197,126,0.25) 50%, rgba(245,197,126,0.12) 60%, transparent 61%, rgba(245,197,126,0.08) 63%, transparent 65%)',
-                  boxShadow: '0 0 20px rgba(245,197,126,0.05) inset'
-                }}
-              />
-              {/* Subtle Tech Overlay Ring */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-                style={{
-                  position: 'absolute',
-                  inset: '0.8rem',
-                  borderRadius: '50%',
-                  border: '1px dashed rgba(245,197,126,0.2)'
-                }}
-              />
-            </motion.div>
-
-            {/* 2. Logo Core (The "Planet" in the middle) */}
-            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
               style={{
                 position: 'relative',
-                zIndex: 2,
-                width: '105px',
-                height: '105px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                x: xCore,
-                y: yCore,
-                top: '21px' // Shunts the logo down so it nests deeply inside the front ring equator
+                cursor: 'crosshair',
+                padding: '2rem',
+                width: '250px',
+                height: '250px',
+                margin: '0 auto',
+                perspective: '1000px',
+                transformStyle: 'preserve-3d'
               }}
             >
-              <motion.img
-                whileHover={{ scale: 1.05, filter: 'drop-shadow(0 0 40px rgba(255,255,255,0.3))' }}
-                src="/images/logo-transparent.png"
-                alt="Podevs Logo"
-                style={{
-                  width: '140%',
-                  height: 'auto',
-                  transition: 'filter 0.3s ease, transform 0.3s ease'
-                }}
-              />
-            </motion.div>
+              {/* 1. Atom Orbit (0 deg) */}
+              <motion.div style={{ position: 'absolute', width: '300px', height: '300px', rotate: 0, transformStyle: 'preserve-3d' }}>
+                <div style={{ position: 'absolute', inset: 0, transform: 'rotateX(75deg)', transformStyle: 'preserve-3d' }}>
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px solid rgba(147,197,253,0.3)' }} />
+                  <motion.div animate={{ rotateZ: 360 }} transition={{ repeat: Infinity, duration: 4, ease: "linear" }} style={{ position: 'absolute', inset: 0 }}>
+                    <div style={{ position: 'absolute', top: '-6px', left: '50%', transform: 'translateX(-50%)', width: '12px', height: '12px', borderRadius: '50%', background: '#60a5fa', boxShadow: '0 0 15px #60a5fa, 0 0 30px #60a5fa' }} />
+                  </motion.div>
+                </div>
+              </motion.div>
 
-            {/* 3. Front Rings (In Front of Planet, clipped to only show bottom half) */}
-            <motion.div
-              style={{
-                position: 'absolute',
-                width: '240px',
-                height: '240px',
-                rotateX: 60,
-                rotateY: -15,
-                x: xRing1,
-                y: yRing1,
-                zIndex: 3, // Sit cleanly on top of the logo
-                clipPath: 'polygon(0 50%, 100% 50%, 100% 100%, 0 100%)',
-              }}
-            >
-              {/* Saturn Main Dusty Disk */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  borderRadius: '50%',
-                  background: 'radial-gradient(circle, transparent 38%, rgba(245,197,126,0.06) 38%, rgba(245,197,126,0.22) 48%, transparent 49%, rgba(245,197,126,0.3) 50%, rgba(245,197,126,0.15) 60%, transparent 61%, rgba(245,197,126,0.08) 63%, transparent 65%)',
-                  boxShadow: '0 0 20px rgba(245,197,126,0.05) inset'
-                }}
-              />
-              {/* Subtle Tech Overlay Ring */}
+              {/* 2. Atom Orbit (60 deg) */}
+              <motion.div style={{ position: 'absolute', width: '300px', height: '300px', rotate: 60, transformStyle: 'preserve-3d' }}>
+                <div style={{ position: 'absolute', inset: 0, transform: 'rotateX(75deg)', transformStyle: 'preserve-3d' }}>
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px solid rgba(147,197,253,0.3)' }} />
+                  <motion.div animate={{ rotateZ: 360 }} transition={{ repeat: Infinity, duration: 5, ease: "linear" }} style={{ position: 'absolute', inset: 0 }}>
+                    <div style={{ position: 'absolute', top: '-6px', left: '50%', transform: 'translateX(-50%)', width: '12px', height: '12px', borderRadius: '50%', background: '#93c5fd', boxShadow: '0 0 15px #93c5fd, 0 0 30px #93c5fd' }} />
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* 3. Atom Orbit (-60 deg) */}
+              <motion.div style={{ position: 'absolute', width: '300px', height: '300px', rotate: -60, transformStyle: 'preserve-3d' }}>
+                <div style={{ position: 'absolute', inset: 0, transform: 'rotateX(75deg)', transformStyle: 'preserve-3d' }}>
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px solid rgba(147,197,253,0.3)' }} />
+                  <motion.div animate={{ rotateZ: 360 }} transition={{ repeat: Infinity, duration: 6, ease: "linear" }} style={{ position: 'absolute', inset: 0 }}>
+                    <div style={{ position: 'absolute', top: '-6px', left: '50%', transform: 'translateX(-50%)', width: '12px', height: '12px', borderRadius: '50%', background: '#bfdbfe', boxShadow: '0 0 15px #bfdbfe, 0 0 30px #bfdbfe' }} />
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* 4. Logo Core (Nucleus) */}
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
                 style={{
-                  position: 'absolute',
-                  inset: '0.8rem',
-                  borderRadius: '50%',
-                  border: '1px dashed rgba(245,197,126,0.45)'
+                  position: 'relative',
+                  width: '120px',
+                  height: '120px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  translateZ: 0 // Explicitly anchor it at Z=0
                 }}
-              />
+              >
+                <motion.img
+                  whileHover={{ scale: 1.1, filter: 'drop-shadow(0 0 50px rgba(147,197,253,0.6))' }}
+                  src="/images/logo-transparent.png"
+                  alt="Podevs Logo"
+                  style={{
+                    width: '130%',
+                    height: 'auto',
+                    transition: 'filter 0.3s ease, transform 0.3s ease'
+                  }}
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </ParallaxLayer>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}

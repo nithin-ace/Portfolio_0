@@ -3,6 +3,7 @@
 import Section from '../ui/Section';
 import { motion } from 'framer-motion';
 import { Target, Zap, Database, Terminal, Shield } from 'lucide-react';
+import ParallaxLayer from '../ui/ParallaxLayer';
 
 export default function About() {
   const fullText = "I am an aspiring Data Analyst who looks beyond the spreadsheet. I believe that data is a digital echo of human behavior. My mission is to translate these raw signals into actionable, high-impact community strategies.";
@@ -11,18 +12,22 @@ export default function About() {
   return (
     <Section id="about">
       <div style={{ position: 'relative', isolation: 'isolate' }}>
-        {/* Background Cyber Elements */}
-        <div style={{ position: 'absolute', top: '-15%', left: '-5%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)', zIndex: -1 }} />
-        <div style={{ position: 'absolute', top: '10%', right: '0%', fontSize: '12rem', fontWeight: 900, opacity: 0.015, pointerEvents: 'none', color: '#fff', fontFamily: 'var(--font-header)', writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
-          SYSTEM_CORE
-        </div>
+        {/* Background Cyber Elements — parallax layers */}
+        <ParallaxLayer speed={-0.25} style={{ position: 'absolute', top: '-15%', left: '-5%', width: '300px', height: '300px', zIndex: -1, overflow: 'visible' }}>
+          <div style={{ width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)' }} />
+        </ParallaxLayer>
+        <ParallaxLayer speed={0.4} style={{ position: 'absolute', top: '10%', right: '0%', pointerEvents: 'none', zIndex: -1, overflow: 'visible' }}>
+          <div style={{ fontSize: '12rem', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
+            SYSTEM_CORE
+          </div>
+        </ParallaxLayer>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '6rem', alignItems: 'flex-start' }}>
           
           {/* Left: Tactical Profile */}
           <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             style={{ position: 'relative' }}
@@ -105,7 +110,7 @@ export default function About() {
             ].map((val, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, x: 50 }}
+                initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.15, duration: 0.6, ease: "easeOut" }}

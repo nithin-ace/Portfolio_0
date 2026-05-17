@@ -5,6 +5,7 @@ import Section from '../ui/Section';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Send, CheckCircle, Terminal } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaYoutube, FaInstagram } from 'react-icons/fa';
+import ParallaxLayer from '../ui/ParallaxLayer';
 
 const socials = [
   { icon: Mail, label: "Email", href: "mailto:marvelnithin123@gmail.com" },
@@ -47,11 +48,21 @@ export default function Contact() {
 
   return (
     <Section id="contact">
+      {/* Parallax watermark */}
+      <div style={{ position: 'relative', isolation: 'isolate' }}>
+        <ParallaxLayer speed={0.25} style={{ position: 'absolute', top: '-5%', left: '-3%', pointerEvents: 'none', zIndex: -1, overflow: 'visible' }}>
+          <div style={{ fontSize: '10rem', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
+            CONNECT
+          </div>
+        </ParallaxLayer>
+
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '4rem' }}>
 
         {/* Left Side: Text & Socials */}
         <div>
-          <h2 className="text-gradient" style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)', marginBottom: '1.5rem', lineHeight: 1 }}>Get_In_Touch</h2>
+          <ParallaxLayer speed={0.1} style={{ overflow: 'visible', marginBottom: '1.5rem' }}>
+            <h2 className="text-gradient" style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)', lineHeight: 1 }}>Get_In_Touch</h2>
+          </ParallaxLayer>
           <p style={{ fontSize: '1.1rem', marginBottom: '3rem', opacity: 0.6, lineHeight: 1.6 }}>
             Interested in data storytelling or community building? Let's connect and create something impactful.
           </p>
@@ -110,9 +121,9 @@ export default function Contact() {
               <motion.form
                 key="form"
                 onSubmit={handleSubmit}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
                 style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
               >
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -187,6 +198,7 @@ export default function Contact() {
         <div>// Aspiring Data Analyst · Chennai, India</div>
         <div style={{ opacity: 0.5 }}>© 2026 NITHIN S // NS_SYSTEM_v1.0. ALL RIGHTS RESERVED.</div>
       </footer>
+      </div>
     </Section>
   );
 }

@@ -3,6 +3,7 @@
 import Section from '../ui/Section';
 import { motion } from 'framer-motion';
 import { GraduationCap, Briefcase, Award, CheckCircle } from 'lucide-react';
+import ParallaxLayer from '../ui/ParallaxLayer';
 
 const education = [
   {
@@ -53,7 +54,16 @@ const experience = [
 export default function Resume() {
   return (
     <Section id="resume">
-      <h2 className="text-gradient" style={{ fontSize: '3rem', marginBottom: '4rem' }}>Career Path</h2>
+      <div style={{ position: 'relative', isolation: 'isolate' }}>
+        <ParallaxLayer speed={0.3} style={{ position: 'absolute', top: '-10%', left: '-3%', pointerEvents: 'none', zIndex: -1, overflow: 'visible' }}>
+          <div style={{ fontSize: '9rem', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
+            CAREER_PATH
+          </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer speed={0.12} style={{ overflow: 'visible', marginBottom: '4rem' }}>
+          <h2 className="text-gradient" style={{ fontSize: '3rem' }}>Career Path</h2>
+        </ParallaxLayer>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '4rem' }}>
         <div>
@@ -62,7 +72,7 @@ export default function Resume() {
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', borderLeft: '1px solid var(--glass-border)', paddingLeft: '2rem' }}>
             {experience.map((exp, i) => (
-              <motion.div key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+              <motion.div key={i} initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
                 <div style={{ position: 'absolute', left: '-2.4rem', width: '0.8rem', height: '0.8rem', borderRadius: '50%', background: 'var(--accent)', marginTop: '0.4rem' }} />
                 <h4 style={{ color: '#fff' }}>{exp.role}</h4>
                 <p style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>{exp.company} | {exp.period}</p>
@@ -80,7 +90,7 @@ export default function Resume() {
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', borderLeft: '1px solid var(--glass-border)', paddingLeft: '2rem' }}>
             {education.map((edu, i) => (
-              <motion.div key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+              <motion.div key={i} initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
                 <div style={{ position: 'absolute', left: '-2.4rem', width: '0.8rem', height: '0.8rem', borderRadius: '50%', background: 'var(--glass-border)', marginTop: '0.4rem' }} />
                 <h4 style={{ color: '#fff' }}>{edu.title}</h4>
                 <p style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>{edu.institution} | {edu.period}</p>
@@ -141,6 +151,7 @@ export default function Resume() {
           <span>DOWNLOAD_FULL_RESUME.pdf</span>
           <span style={{ opacity: 0.5 }}>[1.2 MB]</span>
         </motion.a>
+      </div>
       </div>
     </Section>
   );

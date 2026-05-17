@@ -2,6 +2,7 @@
 
 import Section from '../ui/Section';
 import { motion } from 'framer-motion';
+import ParallaxLayer from '../ui/ParallaxLayer';
 import { 
   Search, 
   FlaskConical, 
@@ -27,7 +28,17 @@ const hobbies = [
 export default function Hobbies() {
   return (
     <Section id="hobbies">
-      <h2 className="text-gradient" style={{ fontSize: '3rem', marginBottom: '4rem' }}>Beyond_Data</h2>
+      <div style={{ position: 'relative', isolation: 'isolate' }}>
+        {/* Parallax watermark */}
+        <ParallaxLayer speed={0.3} style={{ position: 'absolute', top: '-5%', right: '-3%', pointerEvents: 'none', zIndex: -1, overflow: 'visible' }}>
+          <div style={{ fontSize: '9rem', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
+            BEYOND_DATA
+          </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer speed={0.12} style={{ overflow: 'visible', marginBottom: '4rem' }}>
+          <h2 className="text-gradient" style={{ fontSize: '3rem' }}>Beyond_Data</h2>
+        </ParallaxLayer>
       
       <div style={{ 
         display: 'grid', 
@@ -47,8 +58,10 @@ export default function Hobbies() {
         {hobbies.map((hobby, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.05 }}
             whileHover={{ 
               backgroundColor: 'rgba(255,255,255,0.03)',
               color: '#fff' 
@@ -74,6 +87,7 @@ export default function Hobbies() {
             </p>
           </motion.div>
         ))}
+      </div>
       </div>
     </Section>
   );

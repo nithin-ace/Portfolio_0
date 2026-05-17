@@ -4,13 +4,22 @@ import { motion } from 'framer-motion';
 
 export default function Navbar() {
   const navItems = [
-    { name: 'Overview', href: '#hero' },
+    { name: 'Hero', href: '#hero' },
+    { name: 'Overview', href: '#about' },
     { name: 'Analytics Stack', href: '#skills' },
     { name: 'Work', href: '#projects' },
     { name: 'Community', href: '#community' },
     { name: 'Beyond', href: '#hobbies' },
     { name: 'Resume', href: '#resume' }
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <motion.nav
@@ -55,6 +64,7 @@ export default function Navbar() {
                 opacity: 0.5,
                 transition: 'all 0.3s ease'
               }}
+              onClick={(e) => handleNavClick(e, item.href)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.opacity = '1';
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -81,6 +91,7 @@ export default function Navbar() {
         </div>
         <motion.a
           href="#contact"
+          onClick={(e) => handleNavClick(e, '#contact')}
           whileHover={{ scale: 1.05, backgroundColor: '#fff', color: '#000' }}
           whileTap={{ scale: 0.95 }}
           style={{

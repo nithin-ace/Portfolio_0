@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, Terminal, FileText } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { supabase } from '@/lib/supabase';
+import ParallaxLayer from '../ui/ParallaxLayer';
 
 // Type definition for Project
 interface Project {
@@ -75,24 +76,37 @@ export default function Projects() {
 
   return (
     <Section id="projects">
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '3rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Terminal color="#fff" />
-          <h2 className="text-gradient" style={{ fontSize: '2.5rem', margin: 0 }}>Work_Log</h2>
+      {/* Parallax watermark */}
+      <div style={{ position: 'relative', isolation: 'isolate' }}>
+        <ParallaxLayer speed={0.3} style={{ position: 'absolute', top: '-5%', right: '-5%', pointerEvents: 'none', zIndex: -1, overflow: 'visible' }}>
+          <div style={{ fontSize: '9rem', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
+            WORK_LOG
+          </div>
+        </ParallaxLayer>
+
+      <ParallaxLayer speed={0.12} style={{ overflow: 'visible', marginBottom: '3rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <Terminal color="#fff" />
+            <h2 className="text-gradient" style={{ fontSize: '2.5rem', margin: 0 }}>Work_Log</h2>
+          </div>
+          <div style={{ fontSize: '0.6rem', fontFamily: 'monospace', opacity: 0.3 }}>
+            STATUS: {loading ? 'FETCHING_DATA...' : 'DATABASE_CONNECTED'}
+          </div>
         </div>
-        <div style={{ fontSize: '0.6rem', fontFamily: 'monospace', opacity: 0.3 }}>
-          STATUS: {loading ? 'FETCHING_DATA...' : 'DATABASE_CONNECTED'}
-        </div>
-      </div>
+      </ParallaxLayer>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }}>
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <motion.div
             key={project.id}
             layoutId={`card-${project.id}`}
             onClick={() => setSelectedId(project.id)}
             data-metadata={project.metadata}
-            initial={{ backgroundColor: 'rgba(255,255,255,0)' }}
+            initial={{ opacity: 0, x: -50, backgroundColor: 'rgba(255,255,255,0)' }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
             whileHover={{ 
               backgroundColor: 'rgba(255,255,255,0.03)',
               y: -5,
@@ -201,6 +215,7 @@ export default function Projects() {
           </div>
         )}
       </AnimatePresence>
+      </div>
     </Section>
   );
 }
