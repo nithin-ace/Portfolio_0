@@ -72,6 +72,17 @@ export default function Projects() {
     fetchProjects();
   }, []);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const selectedProject = projects.find(p => p.id === selectedId);
 
   return (
@@ -79,16 +90,16 @@ export default function Projects() {
       {/* Parallax watermark */}
       <div style={{ position: 'relative', isolation: 'isolate' }}>
         <ParallaxLayer speed={0.3} style={{ position: 'absolute', top: '-5%', right: '-5%', pointerEvents: 'none', zIndex: -1, overflow: 'visible' }}>
-          <div style={{ fontSize: '9rem', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
+          <div style={{ fontSize: 'clamp(4rem, 10vw, 9rem)', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
             WORK_LOG
           </div>
         </ParallaxLayer>
 
       <ParallaxLayer speed={0.12} style={{ overflow: 'visible', marginBottom: '3rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <Terminal color="#fff" />
-            <h2 className="text-gradient" style={{ fontSize: '2.5rem', margin: 0 }}>Work_Log</h2>
+            <h2 className="text-gradient" style={{ fontSize: 'clamp(2rem, 6vw, 2.5rem)', margin: 0 }}>Work_Log</h2>
           </div>
           <div style={{ fontSize: '0.6rem', fontFamily: 'monospace', opacity: 0.3 }}>
             STATUS: {loading ? 'FETCHING_DATA...' : 'DATABASE_CONNECTED'}
@@ -96,7 +107,7 @@ export default function Projects() {
         </div>
       </ParallaxLayer>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }}>
         {projects.map((project, index) => (
           <motion.div
             key={project.id}
@@ -114,7 +125,7 @@ export default function Projects() {
             }}
             style={{ 
               backgroundColor: 'var(--background)',
-              padding: '2.5rem', 
+              padding: isMobile ? '1.8rem' : '2.5rem', 
               display: 'flex', 
               flexDirection: 'column', 
               gap: '1.5rem', 
@@ -126,17 +137,17 @@ export default function Projects() {
             <div style={{ fontSize: '0.7rem', color: '#fff', fontFamily: 'monospace', opacity: 0.3 }}>[00{project.id}]</div>
             <motion.h3 
               layoutId={`title-${project.id}`} 
-              style={{ fontSize: '1.3rem', letterSpacing: '0.05em', color: '#fff' }}
+              style={{ fontSize: '1.2rem', letterSpacing: '0.05em', color: '#fff' }}
             >
               {project.title}
             </motion.h3>
-            <motion.p layoutId={`desc-${project.id}`} style={{ fontSize: '0.9rem', color: '#fff', opacity: 0.6 }}>
+            <motion.p layoutId={`desc-${project.id}`} style={{ fontSize: '0.85rem', color: '#fff', opacity: 0.6, lineHeight: 1.5 }}>
               {project.description}
             </motion.p>
             
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: 'auto' }}>
               {project.tech.map((t, j) => (
-                <span key={j} style={{ fontSize: '0.65rem', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '2px 8px', textTransform: 'uppercase', fontFamily: 'monospace', opacity: 0.8 }}>
+                <span key={j} style={{ fontSize: '0.6rem', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '2px 6px', textTransform: 'uppercase', fontFamily: 'monospace', opacity: 0.8 }}>
                   {t}
                 </span>
               ))}
@@ -144,7 +155,7 @@ export default function Projects() {
 
             <div style={{ 
               marginTop: '1rem', 
-              fontSize: '0.7rem', 
+              fontSize: '0.65rem', 
               fontWeight: 700, 
               borderTop: '1px solid rgba(255,255,255,0.1)', 
               paddingTop: '1rem', 
@@ -176,7 +187,7 @@ export default function Projects() {
                 maxWidth: '800px', 
                 backgroundColor: 'var(--background)', 
                 border: '1px solid #fff',
-                padding: '4rem', 
+                padding: isMobile ? '2.5rem 1.5rem' : '4rem', 
                 position: 'relative',
                 maxHeight: '90vh',
                 overflowY: 'auto',
@@ -190,24 +201,24 @@ export default function Projects() {
                 <X size={24} />
               </button>
 
-              <div style={{ fontSize: '0.8rem', color: '#fff', fontFamily: 'monospace', marginBottom: '1rem', opacity: 0.5 }}>INITIALIZING_LOG_00{selectedId}...</div>
+              <div style={{ fontSize: '0.7rem', color: '#fff', fontFamily: 'monospace', marginBottom: '1rem', opacity: 0.5 }}>INITIALIZING_LOG_00{selectedId}...</div>
               
-              <motion.h3 layoutId={`title-${selectedId}`} style={{ fontSize: '3rem', color: '#fff', marginBottom: '2rem' }}>
+              <motion.h3 layoutId={`title-${selectedId}`} style={{ fontSize: isMobile ? '1.8rem' : '3rem', color: '#fff', marginBottom: '2.5rem', lineHeight: 1.1 }}>
                 {selectedProject.title}
               </motion.h3>
               
-              <motion.p layoutId={`desc-${selectedId}`} style={{ fontSize: '1.2rem', lineHeight: 1.7, marginBottom: '2.5rem', color: '#fff' }}>
+              <motion.p layoutId={`desc-${selectedId}`} style={{ fontSize: isMobile ? '1rem' : '1.2rem', lineHeight: 1.7, marginBottom: '2.5rem', color: '#fff' }}>
                 {selectedProject.longDescription}
               </motion.p>
 
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                <a href={selectedProject.casestudy} target="_blank" rel="noopener noreferrer" style={{ padding: '1rem 2rem', color: '#000', backgroundColor: '#fff', display: 'flex', alignItems: 'center', gap: '0.8rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.8rem', fontFamily: 'monospace', cursor: 'none' }}>
+              <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '1rem', flexWrap: 'wrap' }}>
+                <a href={selectedProject.casestudy} target="_blank" rel="noopener noreferrer" style={{ padding: '1rem 2rem', color: '#000', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', textDecoration: 'none', fontWeight: 800, fontSize: '0.8rem', fontFamily: 'monospace', cursor: 'none' }}>
                   <FileText size={20} /> READ_CASE_STUDY
                 </a>
-                <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" style={{ padding: '1rem 2rem', color: '#fff', display: 'flex', alignItems: 'center', gap: '0.8rem', textDecoration: 'none', border: '1px solid #fff', fontSize: '0.8rem', fontFamily: 'monospace', cursor: 'none' }}>
+                <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" style={{ padding: '1rem 2rem', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', textDecoration: 'none', border: '1px solid #fff', fontSize: '0.8rem', fontFamily: 'monospace', cursor: 'none' }}>
                   <FaGithub size={20} /> VIEW_SOURCE
                 </a>
-                <a href={selectedProject.live} target="_blank" rel="noopener noreferrer" style={{ padding: '1rem 2rem', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', gap: '0.8rem', textDecoration: 'none', fontSize: '0.8rem', fontFamily: 'monospace', cursor: 'none' }}>
+                <a href={selectedProject.live} target="_blank" rel="noopener noreferrer" style={{ padding: '1rem 2rem', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', textDecoration: 'none', fontSize: '0.8rem', fontFamily: 'monospace', cursor: 'none' }}>
                   <ExternalLink size={20} /> LAUNCH_LIVE
                 </a>
               </div>

@@ -31,63 +31,51 @@ export default function Hobbies() {
       <div style={{ position: 'relative', isolation: 'isolate' }}>
         {/* Parallax watermark */}
         <ParallaxLayer speed={0.3} style={{ position: 'absolute', top: '-5%', right: '-3%', pointerEvents: 'none', zIndex: -1, overflow: 'visible' }}>
-          <div style={{ fontSize: '9rem', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
+          <div style={{ fontSize: 'clamp(4rem, 10vw, 9rem)', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
             BEYOND_DATA
           </div>
         </ParallaxLayer>
 
         <ParallaxLayer speed={0.12} style={{ overflow: 'visible', marginBottom: '4rem' }}>
-          <h2 className="text-gradient" style={{ fontSize: '3rem' }}>Beyond_Data</h2>
+          <h2 className="text-gradient" style={{ fontSize: 'clamp(2rem, 6vw, 3rem)' }}>Beyond_Data</h2>
         </ParallaxLayer>
       
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(calc(25% - 1px), 1fr))', 
-        gap: '1px', 
-        backgroundColor: 'rgba(255,255,255,0.1)',
-        border: '1px solid rgba(255,255,255,0.1)'
-      }}>
-        <style jsx>{`
-          @media (max-width: 1024px) {
-            div { grid-template-columns: repeat(2, 1fr) !important; }
-          }
-          @media (max-width: 640px) {
-            div { grid-template-columns: repeat(1, 1fr) !important; }
-          }
-        `}</style>
-        {hobbies.map((hobby, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.05 }}
-            whileHover={{ 
-              backgroundColor: 'rgba(255,255,255,0.03)',
-              color: '#fff' 
-            }}
-            style={{ 
-              padding: '1.5rem 1rem', 
-              textAlign: 'center', 
-              transition: 'all 0.3s ease',
-              backgroundColor: 'var(--background)',
-              border: '1px solid transparent',
-              cursor: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: '140px'
-            }}
-          >
-            <hobby.icon size={18} style={{ marginBottom: '1rem', opacity: 0.8 }} />
-            <h3 style={{ fontSize: '0.85rem', marginBottom: '0.4rem', letterSpacing: '0.1em', fontWeight: 700 }}>{hobby.label.toUpperCase()}</h3>
-            <p style={{ fontSize: '0.65rem', opacity: 0.5, fontFamily: 'monospace', lineHeight: 1.3, maxWidth: '160px' }}>
-              // {hobby.desc}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+        <div className="hobbies-grid">
+          {hobbies.map((hobby, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              whileHover={{ 
+                backgroundColor: 'rgba(255,255,255,0.03)',
+                color: '#fff' 
+              }}
+              style={{ 
+                padding: '2rem 1.5rem', 
+                textAlign: 'center', 
+                transition: 'all 0.3s ease',
+                backgroundColor: 'var(--background)',
+                border: '1px solid transparent',
+                cursor: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '160px'
+              }}
+            >
+              <hobby.icon size={20} style={{ marginBottom: '1.2rem', opacity: 0.8 }} />
+              <h3 style={{ fontSize: '0.85rem', marginBottom: '0.5rem', letterSpacing: '0.1em', fontWeight: 700 }}>
+                {hobby.label.toUpperCase()}
+              </h3>
+              <p style={{ fontSize: '0.65rem', opacity: 0.5, fontFamily: 'monospace', lineHeight: 1.4, maxWidth: '200px' }}>
+                // {hobby.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </Section>
   );

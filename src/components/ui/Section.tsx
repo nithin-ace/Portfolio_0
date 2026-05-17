@@ -15,17 +15,19 @@ export default function Section({ children, id, className }: SectionProps) {
       id={id}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
+      className={`portfolio-section ${className || ''}`}
       style={{
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: '4rem 2rem',
         maxWidth: '1200px',
         margin: '0 auto',
+        position: 'relative',
+        overflow: 'hidden',
+        width: '100%',
       }}
     >
       {children}

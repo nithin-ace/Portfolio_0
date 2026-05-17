@@ -34,19 +34,19 @@ export default function Skills() {
       <div style={{ position: 'relative', isolation: 'isolate' }}>
         {/* Parallax watermark */}
         <ParallaxLayer speed={0.35} style={{ position: 'absolute', top: '5%', left: '-5%', pointerEvents: 'none', zIndex: -1, overflow: 'visible' }}>
-          <div style={{ fontSize: '9rem', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
+          <div style={{ fontSize: 'clamp(4rem, 10vw, 9rem)', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
             ANALYTICS_ENGINE
           </div>
         </ParallaxLayer>
 
         <div style={{ marginBottom: '4rem' }}>
           <ParallaxLayer speed={0.15} style={{ overflow: 'visible' }}>
-            <h2 className="text-gradient" style={{ fontSize: '3rem', marginBottom: '1rem' }}>Analytics_Stack</h2>
+            <h2 className="text-gradient" style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', marginBottom: '1rem' }}>Analytics_Stack</h2>
             <p style={{ color: 'var(--muted)', marginBottom: '3rem' }}>Interactive map of my technical universe. Click and drag to explore connections.</p>
           </ParallaxLayer>
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
-          <div className="glass" style={{ minHeight: '500px', overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem' }}>
+          <div className="glass" style={{ minHeight: '450px', overflow: 'hidden' }}>
             <SkillCanvas />
           </div>
 

@@ -3,27 +3,38 @@
 import Section from '../ui/Section';
 import { motion } from 'framer-motion';
 import { Radio, PenTool } from 'lucide-react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ParallaxLayer from '../ui/ParallaxLayer';
 
 export default function Community() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <Section id="community">
       <div style={{ position: 'relative', isolation: 'isolate', marginTop: '2rem' }}>
 
-        <div style={{ position: 'absolute', top: '0', left: '-5%', fontSize: '10rem', fontWeight: 900, opacity: 0.015, pointerEvents: 'none', color: '#fff', fontFamily: 'var(--font-header)', zIndex: -1 }}>
+        <div style={{ position: 'absolute', top: '0', left: '-5%', fontSize: 'clamp(4rem, 10vw, 10rem)', fontWeight: 900, opacity: 0.015, pointerEvents: 'none', color: '#fff', fontFamily: 'var(--font-header)', zIndex: -1, whiteSpace: 'nowrap' }}>
           NODE_LINK
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '4rem' }}>
           <div style={{ width: '40px', height: '1px', background: '#fff', opacity: 0.2 }} />
-          <h2 style={{ fontSize: '2.5rem', fontFamily: 'var(--font-header)', fontWeight: 700, letterSpacing: '2px' }}>Network / Community</h2>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', fontFamily: 'var(--font-header)', fontWeight: 700, letterSpacing: '2px' }}>Network / Community</h2>
         </div>
 
         <div
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '6rem', alignItems: 'center' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: isMobile ? '3rem' : '6rem', alignItems: 'center' }}
         >
-          <ParallaxLayer speed={0.2} style={{ overflow: 'visible' }}>
+          <ParallaxLayer speed={isMobile ? 0 : 0.2} style={{ overflow: 'visible' }}>
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -40,7 +51,9 @@ export default function Community() {
                 height: '250px',
                 margin: '0 auto',
                 perspective: '1000px',
-                transformStyle: 'preserve-3d'
+                transformStyle: 'preserve-3d',
+                transform: isMobile ? 'scale(0.8)' : 'none',
+                transformOrigin: 'center'
               }}
             >
               {/* 1. Atom Orbit (0 deg) */}
@@ -115,20 +128,20 @@ export default function Community() {
               <span style={{ fontSize: '0.7rem', fontFamily: 'monospace', color: '#fff', opacity: 0.5, letterSpacing: '0.1em' }}>GRP // PODEVS</span>
             </div>
 
-            <h3 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', fontFamily: 'var(--font-header)', fontWeight: 700, lineHeight: 1.1 }}>
+            <h3 style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', marginBottom: '1.5rem', fontFamily: 'var(--font-header)', fontWeight: 700, lineHeight: 1.1 }}>
               Strategist &<br />Web Builder.
             </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem', borderLeft: '2px solid rgba(255,255,255,0.1)', paddingLeft: '1.5rem' }}>
-              <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: '#fff', opacity: 0.6, fontFamily: 'var(--font-body)' }}>
+              <p style={{ fontSize: '0.95rem', lineHeight: 1.7, color: '#fff', opacity: 0.6, fontFamily: 'var(--font-body)' }}>
                 <span style={{ color: '#fff', fontWeight: 700 }}>THE COMMUNITY:</span> Podevs is an EdTech initiative dedicated to accessible learning. We provide free tech education through interactive workshops, hackathons, and YouTube. To support this mission, we also operate a premium studio offering professional, paid web development, deployment, and hosting services to clients.
               </p>
-              <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: '#fff', opacity: 0.6, fontFamily: 'var(--font-body)' }}>
+              <p style={{ fontSize: '0.95rem', lineHeight: 1.7, color: '#fff', opacity: 0.6, fontFamily: 'var(--font-body)' }}>
                 <span style={{ color: '#fff', fontWeight: 700 }}>MY ROLE:</span> I act as the strategic core and idea engine. I focus on community growth, conceptualizing campaigns, and spearheading our upcoming content creation. When we need digital infrastructure, I bridge the gap from idea to reality—shaping our community platforms behind the scenes.
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem' }}>
               <motion.div
                 whileHover={{ backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.3)' }}
                 style={{ padding: '1.2rem', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)', position: 'relative', transition: 'all 0.3s ease' }}

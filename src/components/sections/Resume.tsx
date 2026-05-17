@@ -56,23 +56,23 @@ export default function Resume() {
     <Section id="resume">
       <div style={{ position: 'relative', isolation: 'isolate' }}>
         <ParallaxLayer speed={0.3} style={{ position: 'absolute', top: '-10%', left: '-3%', pointerEvents: 'none', zIndex: -1, overflow: 'visible' }}>
-          <div style={{ fontSize: '9rem', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
+          <div style={{ fontSize: 'clamp(4rem, 10vw, 9rem)', fontWeight: 900, opacity: 0.015, color: '#fff', fontFamily: 'var(--font-header)', whiteSpace: 'nowrap' }}>
             CAREER_PATH
           </div>
         </ParallaxLayer>
 
         <ParallaxLayer speed={0.12} style={{ overflow: 'visible', marginBottom: '4rem' }}>
-          <h2 className="text-gradient" style={{ fontSize: '3rem' }}>Career Path</h2>
+          <h2 className="text-gradient" style={{ fontSize: 'clamp(2rem, 6vw, 3rem)' }}>Career Path</h2>
         </ParallaxLayer>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '4rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '4rem' }}>
         <div>
           <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '1.5rem', marginBottom: '2rem' }}>
             <Briefcase className="text-muted" /> Experience
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', borderLeft: '1px solid var(--glass-border)', paddingLeft: '2rem' }}>
             {experience.map((exp, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
+              <motion.div key={i} initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }} style={{ position: 'relative' }}>
                 <div style={{ position: 'absolute', left: '-2.4rem', width: '0.8rem', height: '0.8rem', borderRadius: '50%', background: 'var(--accent)', marginTop: '0.4rem' }} />
                 <h4 style={{ color: '#fff' }}>{exp.role}</h4>
                 <p style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>{exp.company} | {exp.period}</p>
@@ -90,7 +90,7 @@ export default function Resume() {
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', borderLeft: '1px solid var(--glass-border)', paddingLeft: '2rem' }}>
             {education.map((edu, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
+              <motion.div key={i} initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }} style={{ position: 'relative' }}>
                 <div style={{ position: 'absolute', left: '-2.4rem', width: '0.8rem', height: '0.8rem', borderRadius: '50%', background: 'var(--glass-border)', marginTop: '0.4rem' }} />
                 <h4 style={{ color: '#fff' }}>{edu.title}</h4>
                 <p style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>{edu.institution} | {edu.period}</p>
@@ -103,7 +103,7 @@ export default function Resume() {
         </div>
       </div>
 
-      <div style={{ marginTop: '6rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
+      <div style={{ marginTop: '6rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem' }}>
         <div className="glass" style={{ padding: '2rem' }}>
           <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '1.2rem', marginBottom: '1.5rem' }}>
             <Award /> Achievements
