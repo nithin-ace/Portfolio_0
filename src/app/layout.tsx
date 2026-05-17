@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "NITHIN S — Data Analyst",
   description: "A minimal, aesthetic portfolio powered by Three.js and Framer Motion.",
   icons: {
-    icon: '/images/ns-logo.png?v=1',
+    icon: '/ns-logo-round.png?v=3',
   }
 };
 
